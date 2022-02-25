@@ -5,6 +5,7 @@
       "description": "",
       "version": "v1"
     },
+    "host": "api.apaleo.com",
     "paths": {
       "/inventory/v1/properties": {
         "get": {
