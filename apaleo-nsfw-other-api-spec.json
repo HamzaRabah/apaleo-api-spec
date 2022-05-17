@@ -1,0 +1,4076 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "apaleo API - not safe for work",
+    "version": "v0-nsfw"
+  },
+  "paths": {
+    "/api/v0-nsfw/configuration/api-resources": {
+      "get": {
+        "tags": [
+          "ApiResources"
+        ],
+        "summary": "Returns a list of API resources.",
+        "description": "Returns all API endpoints and the scopes needed to access them.<br>You need to be authorized (no particular scope required)",
+        "operationId": "ApiConfigurationApi-resourcesGet",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "clientScopesFilter",
+            "description": "",
+            "type": "string",
+            "enum": [
+              "SimpleClient",
+              "ConnectClient",
+              "IncludeProtectedScopes"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/ApiResourceListModel"
+            }
+          },
+          "204": {
+            "description": "No content."
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "422": {
+            "description": "Validation errors in the request body or query params.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v0-nsfw/configuration/connect-clients": {
+      "get": {
+        "tags": [
+          "ConnectClients"
+        ],
+        "summary": "Returns a list of connect clients.",
+        "description": "Returns a list of all connect clients.<br>You must have this scope: 'identity:clients.manage'.",
+        "operationId": "ApiConfigurationConnect-clientsGet",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/ClientListModel[ConnectClientModel]"
+            }
+          },
+          "204": {
+            "description": "No content."
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "422": {
+            "description": "Validation errors in the request body or query params.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:clients.manage"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "ConnectClients"
+        ],
+        "summary": "Creates a connect client.",
+        "description": "Creates a new connect client based on provided model.<br>You must have this scope: 'identity:clients.manage'.",
+        "operationId": "ApiConfigurationConnect-clientsPost",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CreateConnectClientModel"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created.",
+            "schema": {
+              "$ref": "#/definitions/ClientCreatedModel"
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "415": {
+            "description": "Unsupported media type."
+          },
+          "422": {
+            "description": "Unprocessable entity.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:clients.manage"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v0-nsfw/configuration/connect-clients/{clientId}": {
+      "get": {
+        "tags": [
+          "ConnectClients"
+        ],
+        "summary": "Returns a connect client.",
+        "description": "Returns a connect client for a specific client ID.<br>You must have this scope: 'identity:clients.manage'.",
+        "operationId": "ApiConfigurationConnect-clientsByClientIdGet",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "clientId",
+            "description": "Client ID.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/ConnectClientModel"
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "422": {
+            "description": "Validation errors in the request body or query params.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:clients.manage"
+            ]
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "ConnectClients"
+        ],
+        "summary": "Modify a connect client.",
+        "description": "Allows to modify a connect client.\r\nAllowed for modification:\r\n- Replace clientName\r\n- Replace logoUri\r\n- Add, replace and remove redirectUris\r\n- Add, replace and remove allowedScopes\r\n- Add, replace and remove properties<br>You must have this scope: 'identity:clients.manage'.",
+        "operationId": "ApiConfigurationConnect-clientsByClientIdPatch",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "clientId",
+            "description": "Client ID.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "allowDeprecatedScopes",
+            "description": "Only for internal use, only works for support users.",
+            "type": "boolean"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "description": "Array of operations to perform",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Operation"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success."
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "415": {
+            "description": "Unsupported media type."
+          },
+          "422": {
+            "description": "Validation errors in the request body or query params.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:clients.manage"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "ConnectClients"
+        ],
+        "summary": "Deletes a connect client.",
+        "description": "Deletes a connect client.<br>You must have this scope: 'identity:clients.manage'.",
+        "operationId": "ApiConfigurationConnect-clientsByClientIdDelete",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "clientId",
+            "description": "Client ID.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success."
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "422": {
+            "description": "Validation errors in the request body or query params.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:clients.manage"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v0-nsfw/configuration/connect-clients/{clientId}/connected-accounts/{accountCode}": {
+      "delete": {
+        "tags": [
+          "ConnectClients"
+        ],
+        "summary": "Disconnects an account from a client",
+        "description": "Disconnects the provided account from the client<br>You must have this scope: 'identity:clients.manage'.",
+        "operationId": "ApiConfigurationConnect-clientsByClientIdConnected-accountsByAccountCodeDelete",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "clientId",
+            "description": "ClientId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "accountCode",
+            "description": "Code of the account that wants to be disconnected.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "success"
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "422": {
+            "description": "Validation errors in the request body or query params.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:clients.manage"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v0-nsfw/configuration/connect-clients/{clientId}/secrets": {
+      "get": {
+        "tags": [
+          "ConnectClients"
+        ],
+        "summary": "Returns a list of secrets of a client.",
+        "description": "Returns a list of all secrets of a client. Each secret contains an ID and description. Not used secrets can be deleted by ID.<br>You must have this scope: 'identity:clients.manage'.",
+        "operationId": "ApiConfigurationConnect-clientsByClientIdSecretsGet",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "clientId",
+            "description": "Client ID.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/ClientSecretListModel"
+            }
+          },
+          "204": {
+            "description": "No content."
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "422": {
+            "description": "Validation errors in the request body or query params.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:clients.manage"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "ConnectClients"
+        ],
+        "summary": "Adds a new auto generated secret to secrets collection.",
+        "description": "Returned secret is not stored anywhere. Please remember it, otherwise create a new one and remove not used secrets.<br>You must have this scope: 'identity:clients.manage'.",
+        "operationId": "ApiConfigurationConnect-clientsByClientIdSecretsPost",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "clientId",
+            "description": "Client ID.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Additional parameters",
+            "schema": {
+              "$ref": "#/definitions/CreateClientSecretModel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/CreatedClientSecretModel"
+            }
+          },
+          "204": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "415": {
+            "description": "Unsupported media type."
+          },
+          "422": {
+            "description": "Validation errors in the request body or query params.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:clients.manage"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v0-nsfw/configuration/connect-clients/{clientId}/secrets/{secretId}": {
+      "delete": {
+        "tags": [
+          "ConnectClients"
+        ],
+        "summary": "Deletes a secret from a client.",
+        "description": "Secret ID is a part of a model returned by secrets GET endpoint.<br>You must have this scope: 'identity:clients.manage'.",
+        "operationId": "ApiConfigurationConnect-clientsByClientIdSecretsBySecretIdDelete",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "clientId",
+            "description": "Client ID.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "secretId",
+            "description": "Secret ID.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success."
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "422": {
+            "description": "Validation errors in the request body or query params.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:clients.manage"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v0-nsfw/configuration/connected-apps": {
+      "get": {
+        "tags": [
+          "ConnectedApps"
+        ],
+        "description": "<br>You must have this scope: 'identity:clients.manage'.",
+        "operationId": "ApiConfigurationConnected-appsGet",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ConnectedAppListModel"
+            }
+          },
+          "204": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "422": {
+            "description": "Validation errors in the request body or query params.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:clients.manage"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v0-nsfw/configuration/connected-apps/{clientId}": {
+      "delete": {
+        "tags": [
+          "ConnectedApps"
+        ],
+        "description": "<br>You must have this scope: 'identity:clients.manage'.",
+        "operationId": "ApiConfigurationConnected-appsByClientIdDelete",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "clientId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "422": {
+            "description": "Validation errors in the request body or query params.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:clients.manage"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v0-nsfw/configuration/credentials-clients": {
+      "get": {
+        "tags": [
+          "CredentialsClients"
+        ],
+        "summary": "Returns a list of credentials clients.",
+        "description": "Returns a list of all credentials clients.<br>You must have this scope: 'identity:clients.manage'.",
+        "operationId": "ApiConfigurationCredentials-clientsGet",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/ClientListModel[CredentialsClientModel]"
+            }
+          },
+          "204": {
+            "description": "No content."
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "422": {
+            "description": "Validation errors in the request body or query params.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:clients.manage"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "CredentialsClients"
+        ],
+        "summary": "Creates a credentials client.",
+        "description": "Creates a new credentials client based on provided model.<br>You must have this scope: 'identity:clients.manage'.",
+        "operationId": "ApiConfigurationCredentials-clientsPost",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CreateCredentialsClientModel"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created.",
+            "schema": {
+              "$ref": "#/definitions/ClientCreatedModel"
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "415": {
+            "description": "Unsupported media type."
+          },
+          "422": {
+            "description": "Unprocessable entity.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:clients.manage"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v0-nsfw/configuration/credentials-clients/{clientId}": {
+      "get": {
+        "tags": [
+          "CredentialsClients"
+        ],
+        "summary": "Returns a credentials client.",
+        "description": "Returns a credentials client for a specific client ID.<br>You must have this scope: 'identity:clients.manage'.",
+        "operationId": "ApiConfigurationCredentials-clientsByClientIdGet",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "clientId",
+            "description": "Client ID.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/CredentialsClientModel"
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "422": {
+            "description": "Validation errors in the request body or query params.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:clients.manage"
+            ]
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "CredentialsClients"
+        ],
+        "summary": "Modify a credentials client.",
+        "description": "Allows to modify a credentials client of the current account.\r\nAllowed for modification:\r\n- Replace clientName\r\n- Add, replace and remove allowedScopes\r\n- Add, replace and remove properties<br>You must have this scope: 'identity:clients.manage'.",
+        "operationId": "ApiConfigurationCredentials-clientsByClientIdPatch",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "clientId",
+            "description": "Client ID.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "description": "Array of operations to perform",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Operation"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success."
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "415": {
+            "description": "Unsupported media type."
+          },
+          "422": {
+            "description": "Validation errors in the request body or query params.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:clients.manage"
+            ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "CredentialsClients"
+        ],
+        "summary": "Deletes a credentials client.",
+        "description": "Deletes a credentials client.<br>You must have this scope: 'identity:clients.manage'.",
+        "operationId": "ApiConfigurationCredentials-clientsByClientIdDelete",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "clientId",
+            "description": "Client ID.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "422": {
+            "description": "Validation errors in the request body or query params.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:clients.manage"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v0-nsfw/configuration/credentials-clients/{clientId}/secrets": {
+      "get": {
+        "tags": [
+          "CredentialsClients"
+        ],
+        "summary": "Returns a list of secrets of a client.",
+        "description": "Returns a list of all secrets of a client. Each secret contains an ID and description. Not used secrets can be deleted by ID.<br>You must have this scope: 'identity:clients.manage'.",
+        "operationId": "ApiConfigurationCredentials-clientsByClientIdSecretsGet",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "clientId",
+            "description": "Client ID.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/ClientSecretListModel"
+            }
+          },
+          "204": {
+            "description": "No content."
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "422": {
+            "description": "Validation errors in the request body or query params.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:clients.manage"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "CredentialsClients"
+        ],
+        "summary": "Adds a new auto generated secret to secrets collection.",
+        "description": "Returned secret is not stored anywhere. Please remember it, otherwise create a new one and remove not used secrets.<br>You must have this scope: 'identity:clients.manage'.",
+        "operationId": "ApiConfigurationCredentials-clientsByClientIdSecretsPost",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "clientId",
+            "description": "Client ID.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Additional parameters",
+            "schema": {
+              "$ref": "#/definitions/CreateClientSecretModel"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/CreatedClientSecretModel"
+            }
+          },
+          "204": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "415": {
+            "description": "Unsupported media type."
+          },
+          "422": {
+            "description": "Validation errors in the request body or query params.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:clients.manage"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v0-nsfw/configuration/credentials-clients/{clientId}/secrets/{secretId}": {
+      "delete": {
+        "tags": [
+          "CredentialsClients"
+        ],
+        "summary": "Deletes a secret from a client.",
+        "description": "Secret ID is a part of a model returned by secrets GET endpoint.<br>You must have this scope: 'identity:clients.manage'.",
+        "operationId": "ApiConfigurationCredentials-clientsByClientIdSecretsBySecretIdDelete",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "clientId",
+            "description": "Client ID.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "secretId",
+            "description": "Secret ID.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success."
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "422": {
+            "description": "Validation errors in the request body or query params.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:clients.manage"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v0-nsfw/account/invitations": {
+      "get": {
+        "tags": [
+          "Invitation"
+        ],
+        "summary": "Returns a list of invitations for the current account",
+        "description": "Returns a list of all invitations to the current account.<br>You must have at least one of these scopes: 'identity:account-users.manage, identity:account-users.read'.",
+        "operationId": "ApiAccountInvitationsGet",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "propertyId",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/InvitationListModel"
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "422": {
+            "description": "Validation errors in the request body or query params.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:account-users.manage",
+              "identity:account-users.read"
+            ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Invitation"
+        ],
+        "summary": "Invites a user to the current account",
+        "description": "Invites a person to the current account with the requested roles and properties.<br />\r\nWhen you specify 'IsAccountAdmin', the user will automatically have access to all properties in all roles.<br />\r\nThe <i>user</i> will only be created or linked to the account, when the person accepts the invitation.<br>You must have this scope: 'identity:account-users.manage'.",
+        "operationId": "ApiAccountInvitationsPost",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CreateInvitationModel"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "415": {
+            "description": "Unsupported media type."
+          },
+          "422": {
+            "description": "Client Error",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:account-users.manage"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v0-nsfw/account/invitations/{email}": {
+      "delete": {
+        "tags": [
+          "Invitation"
+        ],
+        "summary": "Deletes an invitation for the current account if it exists",
+        "description": "<br>You must have this scope: 'identity:account-users.manage'.",
+        "operationId": "ApiAccountInvitationsByEmailDelete",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "email",
+            "description": "email of the invited person",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "422": {
+            "description": "Validation errors in the request body or query params.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:account-users.manage"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v0-nsfw/roles": {
+      "get": {
+        "tags": [
+          "Roles"
+        ],
+        "summary": "Returns a static list of all roles.",
+        "description": "",
+        "operationId": "ApiRolesGet",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/RoleListModel"
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "422": {
+            "description": "Validation errors in the request body or query params.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        }
+      }
+    },
+    "/api/v0-nsfw/users": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Returns a list of users for the current account.",
+        "description": "Returns a list of all users that have access to the current account.<br>You must have at least one of these scopes: 'identity:account-users.manage, identity:account-users.read'.",
+        "operationId": "ApiUsersGet",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "propertyIds",
+            "description": "List of property ids to filter users by",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "email",
+            "description": "Filter users by email",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UsersListModel"
+            }
+          },
+          "204": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "422": {
+            "description": "Validation errors in the request body or query params.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:account-users.manage",
+              "identity:account-users.read"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v0-nsfw/users/{userId}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Returns a user for the current account.",
+        "description": "Returns a user in the current account for a specific subjectId address.<br>You must have at least one of these scopes: 'identity:account-users.manage, identity:account-users.read'.",
+        "operationId": "ApiUsersByUserIdGet",
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "description": "User's subjectId.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/UserModel"
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "422": {
+            "description": "Validation errors in the request body or query params.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:account-users.manage",
+              "identity:account-users.read"
+            ]
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Modify user in an account.",
+        "description": "Modify user in an account.\r\nAllowed operations:\r\n- Replace firstName and lastName\r\n- Replace isAccountAdmin (setting it to true or false)\r\n- Replace enabled (setting it to true or false)\r\n- Replace properties<br>You must have this scope: 'identity:account-users.manage'.",
+        "operationId": "ApiUsersByUserIdPatch",
+        "consumes": [
+          "application/json-patch+json",
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "description": "User's subjectId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "schema": {
+              "description": "Array of operations to perform",
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Operation"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success."
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "You are unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "The Request-URI could not be found."
+          },
+          "415": {
+            "description": "Unsupported media type."
+          },
+          "422": {
+            "description": "Validation errors in the request body or query params.",
+            "schema": {
+              "$ref": "#/definitions/MessageItemCollection"
+            }
+          },
+          "500": {
+            "description": "An unexpected error occurred."
+          },
+          "503": {
+            "description": "The server is currently unavailable. Please try later."
+          }
+        },
+        "security": [
+          {
+            "oauth2": [
+              "identity:account-users.manage"
+            ]
+          }
+        ]
+      }
+    },
+    "/configuration/v0-nsfw/properties/{propertyId}": {
+        "post": {
+          "tags": [
+            "Configuration"
+          ],
+          "summary": "Create a property configuration",
+          "description": "Create a property configuration<br>You must have at least one of these scopes: 'fiscalization:admin, fiscalization:configuration.manage'.",
+          "operationId": "ConfigurationPropertiesByPropertyIdPost",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "propertyId",
+              "description": "The ID of the property.",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Property configuration details",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/CreatePropertyConfigurationModel"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "No Content."
+            },
+            "400": {
+              "description": "Bad request."
+            },
+            "401": {
+              "description": "You are unauthorized."
+            },
+            "403": {
+              "description": "Forbidden."
+            },
+            "404": {
+              "description": "The Request-URI could not be found."
+            },
+            "415": {
+              "description": "Unsupported media type."
+            },
+            "422": {
+              "description": "Validation errors in the request body or query params.",
+              "schema": {
+                "$ref": "#/definitions/MessageItemCollection"
+              }
+            },
+            "500": {
+              "description": "An unexpected error occurred."
+            },
+            "503": {
+              "description": "The server is currently unavailable. Please try later."
+            }
+          },
+          "security": [
+            {
+              "oauth2": [
+                "fiscalization:admin",
+                "fiscalization:configuration.manage"
+              ]
+            }
+          ]
+        },
+        "get": {
+          "tags": [
+            "Configuration"
+          ],
+          "summary": "Returns a property configuration.",
+          "description": "Retrieves a property configuration by property id<br>You must have at least one of these scopes: 'fiscalization:admin, fiscalization:configuration.manage, fiscalization:configuration.read'.",
+          "operationId": "ConfigurationPropertiesByPropertyIdGet",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "propertyId",
+              "description": "The ID of the property.",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/PropertyConfigurationModel"
+              }
+            },
+            "400": {
+              "description": "Bad request."
+            },
+            "401": {
+              "description": "You are unauthorized."
+            },
+            "403": {
+              "description": "Forbidden."
+            },
+            "404": {
+              "description": "The Request-URI could not be found."
+            },
+            "422": {
+              "description": "Validation errors in the request body or query params.",
+              "schema": {
+                "$ref": "#/definitions/MessageItemCollection"
+              }
+            },
+            "500": {
+              "description": "An unexpected error occurred."
+            },
+            "503": {
+              "description": "The server is currently unavailable. Please try later."
+            }
+          },
+          "security": [
+            {
+              "oauth2": [
+                "fiscalization:admin",
+                "fiscalization:configuration.manage",
+                "fiscalization:configuration.read"
+              ]
+            }
+          ]
+        },
+        "patch": {
+          "tags": [
+            "Configuration"
+          ],
+          "summary": "Partially updates the property configurations of the current account.",
+          "description": "<br>You must have at least one of these scopes: 'fiscalization:admin, fiscalization:configuration.manage'.",
+          "operationId": "ConfigurationPropertiesByPropertyIdPatch",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "propertyId",
+              "description": "The ID of the property.",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "in": "body",
+              "name": "body",
+              "description": "The request describing the update.",
+              "required": true,
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Operation"
+                }
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Success."
+            },
+            "400": {
+              "description": "Bad request."
+            },
+            "401": {
+              "description": "You are unauthorized."
+            },
+            "403": {
+              "description": "Forbidden."
+            },
+            "404": {
+              "description": "The Request-URI could not be found."
+            },
+            "415": {
+              "description": "Unsupported media type."
+            },
+            "422": {
+              "description": "Validation errors in the request body or query params.",
+              "schema": {
+                "$ref": "#/definitions/MessageItemCollection"
+              }
+            },
+            "500": {
+              "description": "An unexpected error occurred."
+            },
+            "503": {
+              "description": "The server is currently unavailable. Please try later."
+            }
+          },
+          "security": [
+            {
+              "oauth2": [
+                "fiscalization:admin",
+                "fiscalization:configuration.manage"
+              ]
+            }
+          ]
+        }
+      },
+      "/configuration/v0-nsfw/properties": {
+        "get": {
+          "tags": [
+            "Configuration"
+          ],
+          "summary": "Get the list of property configurations for the current account",
+          "description": "<br>You must have at least one of these scopes: 'fiscalization:admin, fiscalization:configuration.manage, fiscalization:configuration.read'.",
+          "operationId": "ConfigurationPropertiesGet",
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/PropertyConfigurationListModel"
+              }
+            },
+            "204": {
+              "description": "There are no property configurations for the current account."
+            },
+            "400": {
+              "description": "Bad request."
+            },
+            "401": {
+              "description": "You are unauthorized."
+            },
+            "403": {
+              "description": "Forbidden."
+            },
+            "404": {
+              "description": "The Request-URI could not be found."
+            },
+            "422": {
+              "description": "Validation errors in the request body or query params.",
+              "schema": {
+                "$ref": "#/definitions/MessageItemCollection"
+              }
+            },
+            "500": {
+              "description": "An unexpected error occurred."
+            },
+            "503": {
+              "description": "The server is currently unavailable. Please try later."
+            }
+          },
+          "security": [
+            {
+              "oauth2": [
+                "fiscalization:admin",
+                "fiscalization:configuration.manage",
+                "fiscalization:configuration.read"
+              ]
+            }
+          ]
+        }
+      },
+      "/finance/v0-nsfw/receipts": {
+        "get": {
+          "tags": [
+            "Receipt"
+          ],
+          "summary": "Return a list of all receipts for the given folio",
+          "description": "<br>You must have at least one of these scopes: 'fiscalization:admin, fiscalization:receipts.read'.",
+          "operationId": "FinanceReceiptsGet",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "query",
+              "name": "propertyIds",
+              "description": "Filter receipt list by property IDs",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "in": "query",
+              "name": "folioIds",
+              "description": "Filter receipt list by folio IDs",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success.",
+              "schema": {
+                "$ref": "#/definitions/SlimReceiptListModel"
+              }
+            },
+            "400": {
+              "description": "Bad request."
+            },
+            "401": {
+              "description": "You are unauthorized."
+            },
+            "403": {
+              "description": "Forbidden."
+            },
+            "422": {
+              "description": "Validation errors in the request body or query params.",
+              "schema": {
+                "$ref": "#/definitions/MessageItemCollection"
+              }
+            },
+            "500": {
+              "description": "An unexpected error occurred."
+            },
+            "503": {
+              "description": "The server is currently unavailable. Please try later."
+            }
+          },
+          "security": [
+            {
+              "oauth2": [
+                "fiscalization:admin",
+                "fiscalization:receipts.read"
+              ]
+            }
+          ]
+        }
+      },
+      "/finance/v0-nsfw/receipts/{id}": {
+        "get": {
+          "tags": [
+            "Receipt"
+          ],
+          "summary": "Returns a receipt by id",
+          "description": "<br>You must have at least one of these scopes: 'fiscalization:admin, fiscalization:receipts.read'.",
+          "operationId": "FinanceReceiptsByIdGet",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "description": "id of the receipt",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success.",
+              "schema": {
+                "$ref": "#/definitions/ReceiptModel"
+              }
+            },
+            "400": {
+              "description": "Bad request."
+            },
+            "401": {
+              "description": "You are unauthorized."
+            },
+            "403": {
+              "description": "Forbidden."
+            },
+            "404": {
+              "description": "The Request-URI could not be found."
+            },
+            "422": {
+              "description": "Validation errors in the request body or query params.",
+              "schema": {
+                "$ref": "#/definitions/MessageItemCollection"
+              }
+            },
+            "500": {
+              "description": "An unexpected error occurred."
+            },
+            "503": {
+              "description": "The server is currently unavailable. Please try later."
+            }
+          },
+          "security": [
+            {
+              "oauth2": [
+                "fiscalization:admin",
+                "fiscalization:receipts.read"
+              ]
+            }
+          ]
+        }
+      },
+      "/finance/v0-nsfw/receipts/{id}/pdf": {
+        "get": {
+          "tags": [
+            "Receipt"
+          ],
+          "summary": "Returns a pdf version of the receipt",
+          "description": "<br>You must have at least one of these scopes: 'fiscalization:admin, fiscalization:receipts.read'.",
+          "operationId": "FinanceReceiptsByIdPdfGet",
+          "produces": [
+            "application/pdf",
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "description": "id of the receipt",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success.",
+              "schema": {
+                "type": "file"
+              }
+            },
+            "400": {
+              "description": "Bad request."
+            },
+            "401": {
+              "description": "You are unauthorized."
+            },
+            "403": {
+              "description": "Forbidden."
+            },
+            "404": {
+              "description": "The Request-URI could not be found."
+            },
+            "422": {
+              "description": "Validation errors in the request body or query params.",
+              "schema": {
+                "$ref": "#/definitions/MessageItemCollection"
+              }
+            },
+            "500": {
+              "description": "An unexpected error occurred."
+            },
+            "503": {
+              "description": "The server is currently unavailable. Please try later."
+            }
+          },
+          "security": [
+            {
+              "oauth2": [
+                "fiscalization:admin",
+                "fiscalization:receipts.read"
+              ]
+            }
+          ]
+        }
+      },
+      "/finance/v0-nsfw/receipts/{folioId}/bulk-pdf": {
+        "get": {
+          "tags": [
+            "Receipt"
+          ],
+          "summary": "Returns a pdf file with all receipts for a given folio",
+          "description": "<br>You must have at least one of these scopes: 'fiscalization:admin, fiscalization:receipts.read'.",
+          "operationId": "FinanceReceiptsByFolioIdBulk-pdfGet",
+          "produces": [
+            "application/pdf",
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "folioId",
+              "description": "the id of the folio",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success.",
+              "schema": {
+                "type": "file"
+              }
+            },
+            "400": {
+              "description": "Bad request."
+            },
+            "401": {
+              "description": "You are unauthorized."
+            },
+            "403": {
+              "description": "Forbidden."
+            },
+            "404": {
+              "description": "The Request-URI could not be found."
+            },
+            "422": {
+              "description": "Validation errors in the request body or query params.",
+              "schema": {
+                "$ref": "#/definitions/MessageItemCollection"
+              }
+            },
+            "500": {
+              "description": "An unexpected error occurred."
+            },
+            "503": {
+              "description": "The server is currently unavailable. Please try later."
+            }
+          },
+          "security": [
+            {
+              "oauth2": [
+                "fiscalization:admin",
+                "fiscalization:receipts.read"
+              ]
+            }
+          ]
+        }
+      },
+      "/finance/v0-nsfw/receipt-actions/{id}/retrysigning": {
+        "put": {
+          "tags": [
+            "ReceiptActions"
+          ],
+          "summary": "Unsafe: allows you to trigger receipt signing again",
+          "description": "<br>You must have this scope: 'fiscalization:admin'.",
+          "operationId": "FinanceReceipt-actionsByIdRetrysigningPut",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "description": "id of the receipt",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "No Content."
+            },
+            "400": {
+              "description": "Bad request."
+            },
+            "401": {
+              "description": "You are unauthorized."
+            },
+            "403": {
+              "description": "Forbidden."
+            },
+            "404": {
+              "description": "The Request-URI could not be found."
+            },
+            "422": {
+              "description": "Validation errors in the request body or query params.",
+              "schema": {
+                "$ref": "#/definitions/MessageItemCollection"
+              }
+            },
+            "500": {
+              "description": "An unexpected error occurred."
+            },
+            "503": {
+              "description": "The server is currently unavailable. Please try later."
+            }
+          },
+          "security": [
+            {
+              "oauth2": [
+                "fiscalization:admin"
+              ]
+            }
+          ]
+        }
+      },
+      "/finance/v0-nsfw/receipt-actions/{id}/retryrendering": {
+        "put": {
+          "tags": [
+            "ReceiptActions"
+          ],
+          "summary": "Unsafe: allows you to trigger receipt rendering again",
+          "description": "<br>You must have this scope: 'fiscalization:admin'.",
+          "operationId": "FinanceReceipt-actionsByIdRetryrenderingPut",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "description": "id of the receipt",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "No Content."
+            },
+            "400": {
+              "description": "Bad request."
+            },
+            "401": {
+              "description": "You are unauthorized."
+            },
+            "403": {
+              "description": "Forbidden."
+            },
+            "404": {
+              "description": "The Request-URI could not be found."
+            },
+            "422": {
+              "description": "Validation errors in the request body or query params.",
+              "schema": {
+                "$ref": "#/definitions/MessageItemCollection"
+              }
+            },
+            "500": {
+              "description": "An unexpected error occurred."
+            },
+            "503": {
+              "description": "The server is currently unavailable. Please try later."
+            }
+          },
+          "security": [
+            {
+              "oauth2": [
+                "fiscalization:admin"
+              ]
+            }
+          ]
+        }
+      },
+      "/finance/v0-nsfw/snapshots": {
+        "get": {
+          "tags": [
+            "Snapshot"
+          ],
+          "summary": "Returns the snapshots for a specific folio",
+          "description": "<br>You must have at least one of these scopes: 'fiscalization:admin, fiscalization:snapshots.get'.",
+          "operationId": "FinanceSnapshotsGet",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "query",
+              "name": "folioId",
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success.",
+              "schema": {
+                "$ref": "#/definitions/SnapshotListModel"
+              }
+            },
+            "400": {
+              "description": "Bad request."
+            },
+            "401": {
+              "description": "You are unauthorized."
+            },
+            "403": {
+              "description": "Forbidden."
+            },
+            "422": {
+              "description": "Validation errors in the request body or query params.",
+              "schema": {
+                "$ref": "#/definitions/MessageItemCollection"
+              }
+            },
+            "500": {
+              "description": "An unexpected error occurred."
+            },
+            "503": {
+              "description": "The server is currently unavailable. Please try later."
+            }
+          },
+          "security": [
+            {
+              "oauth2": [
+                "fiscalization:admin",
+                "fiscalization:snapshots.get"
+              ]
+            }
+          ]
+        }
+      },
+      "/finance/v0-nsfw/snapshots/{snapshotId}": {
+        "get": {
+          "tags": [
+            "Snapshot"
+          ],
+          "summary": "Returns a specic snapshot",
+          "description": "<br>You must have at least one of these scopes: 'fiscalization:admin, fiscalization:snapshots.get'.",
+          "operationId": "FinanceSnapshotsBySnapshotIdGet",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "snapshotId",
+              "description": "The snapshotId to get the snapshot for",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success.",
+              "schema": {
+                "$ref": "#/definitions/SnapshotModel"
+              }
+            },
+            "400": {
+              "description": "Bad request."
+            },
+            "401": {
+              "description": "You are unauthorized."
+            },
+            "403": {
+              "description": "Forbidden."
+            },
+            "404": {
+              "description": "The Request-URI could not be found."
+            },
+            "422": {
+              "description": "Validation errors in the request body or query params.",
+              "schema": {
+                "$ref": "#/definitions/MessageItemCollection"
+              }
+            },
+            "500": {
+              "description": "An unexpected error occurred."
+            },
+            "503": {
+              "description": "The server is currently unavailable. Please try later."
+            }
+          },
+          "security": [
+            {
+              "oauth2": [
+                "fiscalization:admin",
+                "fiscalization:snapshots.get"
+              ]
+            }
+          ]
+        }
+      },
+      "/finance/v0-nsfw/snapshots/{folioId}/latest": {
+        "get": {
+          "tags": [
+            "Snapshot"
+          ],
+          "summary": "Returns the latest created snapshot for a specific folio",
+          "description": "<br>You must have at least one of these scopes: 'fiscalization:admin, fiscalization:snapshots.get'.",
+          "operationId": "FinanceSnapshotsByFolioIdLatestGet",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "folioId",
+              "description": "The folioId to return the latest snapshot for",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/SnapshotModel"
+              }
+            },
+            "204": {
+              "description": "Success."
+            },
+            "400": {
+              "description": "Bad request."
+            },
+            "401": {
+              "description": "You are unauthorized."
+            },
+            "403": {
+              "description": "Forbidden."
+            },
+            "404": {
+              "description": "The Request-URI could not be found."
+            },
+            "422": {
+              "description": "Validation errors in the request body or query params.",
+              "schema": {
+                "$ref": "#/definitions/MessageItemCollection"
+              }
+            },
+            "500": {
+              "description": "An unexpected error occurred."
+            },
+            "503": {
+              "description": "The server is currently unavailable. Please try later."
+            }
+          },
+          "security": [
+            {
+              "oauth2": [
+                "fiscalization:admin",
+                "fiscalization:snapshots.get"
+              ]
+            }
+          ]
+        }
+      },
+      "/finance/v0-nsfw/snapshot-actions/{id}/reprocess": {
+        "put": {
+          "tags": [
+            "SnapshotActions"
+          ],
+          "summary": "Triggers the snapshot processing for an unfinished snapshot with\r\nUnknown FiscalizationStatus",
+          "description": "<br>You must have this scope: 'fiscalization:admin'.",
+          "operationId": "FinanceSnapshot-actionsByIdReprocessPut",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "description": "Snapshot Id",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Success"
+            },
+            "400": {
+              "description": "Bad request."
+            },
+            "401": {
+              "description": "You are unauthorized."
+            },
+            "403": {
+              "description": "Forbidden."
+            },
+            "404": {
+              "description": "The Request-URI could not be found."
+            },
+            "422": {
+              "description": "Validation errors in the request body or query params.",
+              "schema": {
+                "$ref": "#/definitions/MessageItemCollection"
+              }
+            },
+            "500": {
+              "description": "An unexpected error occurred."
+            },
+            "503": {
+              "description": "The server is currently unavailable. Please try later."
+            }
+          },
+          "security": [
+            {
+              "oauth2": [
+                "fiscalization:admin"
+              ]
+            }
+          ]
+        }
+      }
+  },
+  "definitions": {
+    "ApiResourceListModel": {
+      "type": "object",
+      "properties": {
+        "apiResources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ApiResourceModel"
+          }
+        }
+      }
+    },
+    "ApiResourceModel": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "The unique name of the resource.",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description of the resource.",
+          "type": "string"
+        },
+        "scopes": {
+          "description": "An API must have at least one scope.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ScopeModel"
+          }
+        }
+      }
+    },
+    "ClientCreatedModel": {
+      "required": [
+        "id"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "The created client id",
+          "type": "string"
+        }
+      },
+      "example": "{\n  \"id\": \"new-client-id\"\n}"
+    },
+    "ClientListModel[ConnectClientModel]": {
+      "type": "object",
+      "properties": {
+        "clients": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ConnectClientModel"
+          }
+        }
+      },
+      "example": "{\n  \"clients\": [\n    {\n      \"clientId\": \"client-id\",\n      \"clientName\": \"Client name\",\n      \"redirectUris\": [\n        \"https://yourapp-prod.com/redirect\",\n        \"https://yourapp-staging.com/redirect\",\n        \"https://localhost:35000/redirect\"\n      ],\n      \"allowedScopes\": [\n        \"properties.read\",\n        \"unitgroups.read\"\n      ],\n      \"properties\": {\n        \"hubspot\": \"https://app.hubspot.com/contacts/<contractNumber>/company/<integrationCompanyId>\"\n      },\n      \"created\": \"2020-01-23T00:00:00Z\",\n      \"createdBy\": \"apaleo Support\",\n      \"deprecatedScopes\": [\n        {\n          \"deprecatedScope\": \"unitgroups.read\",\n          \"replacedByScopes\": [\n            \"setup.read\"\n          ]\n        }\n      ],\n      \"connectedAccounts\": [\n        {\n          \"accountCode\": \"CODE\",\n          \"accountName\": \"Account Name\",\n          \"accountType\": \"Trial\",\n          \"lastAccess\": \"2020-05-06\"\n        }\n      ],\n      \"canReadPersonallyIdentifiableInformation\": false,\n      \"personallyIdentifiableInformationMode\": \"Retrieve\"\n    }\n  ]\n}"
+    },
+    "ClientListModel[CredentialsClientModel]": {
+      "type": "object",
+      "properties": {
+        "clients": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CredentialsClientModel"
+          }
+        }
+      },
+      "example": "{\n  \"clients\": [\n    {\n      \"clientId\": \"client-id\",\n      \"clientName\": \"Client name\",\n      \"allowedScopes\": [\n        \"properties.read\",\n        \"unitgroups.read\"\n      ],\n      \"properties\": {\n        \"hubspot\": \"https://app.hubspot.com/contacts/<contractNumber>/company/<integrationCompanyId>\",\n        \"customer\": \"https://app.hubspot.com/contacts/<contractNumber>/company/<customerCompanyId>\"\n      },\n      \"created\": \"2020-01-23T00:00:00Z\",\n      \"createdBy\": \"apaleo Support\",\n      \"canReadPersonallyIdentifiableInformation\": false,\n      \"personallyIdentifiableInformationMode\": \"Retrieve\"\n    }\n  ]\n}"
+    },
+    "ClientSecretListModel": {
+      "type": "object",
+      "properties": {
+        "secrets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ClientSecretModel"
+          }
+        }
+      },
+      "example": "{\n  \"secrets\": [\n    {\n      \"id\": \"h5h1FR\",\n      \"description\": \"Test client secret\",\n      \"created\": \"0001-01-01T00:00:00Z\"\n    },\n    {\n      \"id\": \"s3Cr3T\",\n      \"description\": \"Second test client secret\",\n      \"created\": \"0001-01-01T00:00:00Z\"\n    }\n  ]\n}"
+    },
+    "ClientSecretModel": {
+      "required": [
+        "id"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "created": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "createdBy": {
+          "type": "string"
+        }
+      },
+      "example": "{\n  \"id\": \"h5h1FR\",\n  \"description\": \"Test client secret\",\n  \"created\": \"2020-01-23T00:00:00Z\",\n  \"createdBy\": \"user@myhotel.com\"\n}"
+    },
+    "ConnectClientModel": {
+      "required": [
+        "clientId",
+        "clientName",
+        "logoUrl",
+        "personallyIdentifiableInformationMode",
+        "redirectUris"
+      ],
+      "type": "object",
+      "properties": {
+        "clientId": {
+          "description": "Unique ID of the client",
+          "type": "string"
+        },
+        "clientName": {
+          "description": "Client display name (used for logging and consent screen)",
+          "type": "string"
+        },
+        "logoUrl": {
+          "description": "URL to client logo (used on consent screen)",
+          "type": "string"
+        },
+        "redirectUris": {
+          "description": "Specifies allowed URIs to return tokens or authorization codes to",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "allowedScopes": {
+          "description": "Specifies the API scopes that the client is allowed to request. If empty, the client can't access any scope",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "description": "Gets or sets the custom properties for the client.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "created": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "deprecatedScopes": {
+          "description": "List of scopes that are included in the client, that are marked as deprecated.\r\nThe collection also includes the list of scopes that have replaced the deprecated scopes, if any.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DeprecatedScopeItemModel"
+          }
+        },
+        "connectedAccounts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ConnectedAccountModel"
+          }
+        },
+        "canReadPersonallyIdentifiableInformation": {
+          "description": "Specifies whether the client can read retrieve personally identifiable information (PII)",
+          "type": "boolean"
+        },
+        "personallyIdentifiableInformationMode": {
+          "description": "Specifies whether personally identifiable information (PII) are retrieved. If not set, PII are retrieved.",
+          "enum": [
+            "Retrieve",
+            "OmitLinked",
+            "OmitAll"
+          ],
+          "type": "string"
+        }
+      },
+      "example": "{\n  \"clientId\": \"client-id\",\n  \"clientName\": \"Client name\",\n  \"redirectUris\": [\n    \"https://yourapp-prod.com/redirect\",\n    \"https://yourapp-staging.com/redirect\",\n    \"https://localhost:35000/redirect\"\n  ],\n  \"allowedScopes\": [\n    \"properties.read\",\n    \"unitgroups.read\"\n  ],\n  \"properties\": {\n    \"hubspot\": \"https://app.hubspot.com/contacts/<contractNumber>/company/<integrationCompanyId>\"\n  },\n  \"created\": \"2020-01-23T00:00:00Z\",\n  \"createdBy\": \"apaleo Support\",\n  \"deprecatedScopes\": [\n    {\n      \"deprecatedScope\": \"unitgroups.read\",\n      \"replacedByScopes\": [\n        \"setup.read\"\n      ]\n    }\n  ],\n  \"connectedAccounts\": [\n    {\n      \"accountCode\": \"CODE\",\n      \"accountName\": \"Account Name\",\n      \"accountType\": \"Trial\",\n      \"lastAccess\": \"2020-05-06\"\n    }\n  ],\n  \"canReadPersonallyIdentifiableInformation\": false,\n  \"personallyIdentifiableInformationMode\": \"Retrieve\"\n}"
+    },
+    "ConnectedAccountModel": {
+      "type": "object",
+      "properties": {
+        "accountCode": {
+          "type": "string"
+        },
+        "accountName": {
+          "type": "string"
+        },
+        "accountType": {
+          "enum": [
+            "Trial",
+            "Live",
+            "Development"
+          ],
+          "type": "string"
+        },
+        "lastAccess": {
+          "type": "string"
+        }
+      },
+      "example": "{\n  \"accountCode\": \"CODE\",\n  \"accountName\": \"Account name\",\n  \"accountType\": \"Trial\",\n  \"lastAccess\": \"2020-05-06\"\n}"
+    },
+    "ConnectedAppListModel": {
+      "type": "object",
+      "properties": {
+        "connectedApps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ConnectedAppModel"
+          }
+        }
+      },
+      "example": "{\n  \"connectedApps\": [\n    {\n      \"clientId\": \"client-id\",\n      \"clientName\": \"Client name\",\n      \"lastAccess\": \"2020-05-06\",\n      \"created\": \"2020-01-23T00:00:00Z\",\n      \"createdBy\": \"c33d8035-0abf-4803-ba1c-551031b25df5\"\n    }\n  ]\n}"
+    },
+    "ConnectedAppModel": {
+      "type": "object",
+      "properties": {
+        "clientId": {
+          "type": "string"
+        },
+        "clientName": {
+          "type": "string"
+        },
+        "lastAccess": {
+          "type": "string"
+        },
+        "created": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "createdBy": {
+          "type": "string"
+        }
+      },
+      "example": "{\n  \"clientId\": \"client-id\",\n  \"clientName\": \"Client name\",\n  \"lastAccess\": \"2020-05-06\",\n  \"created\": \"2020-01-23T00:00:00Z\",\n  \"createdBy\": \"c33d8035-0abf-4803-ba1c-551031b25df5\"\n}"
+    },
+    "CreateClientSecretModel": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        }
+      },
+      "example": "{\n  \"description\": \"Test client secret\"\n}"
+    },
+    "CreateConnectClientModel": {
+      "required": [
+        "allowedScopes",
+        "clientCode",
+        "clientName",
+        "logoUrl",
+        "redirectUris"
+      ],
+      "type": "object",
+      "properties": {
+        "clientCode": {
+          "description": "The ClientCode is used to internally generate a unique Id for the client.",
+          "type": "string"
+        },
+        "clientName": {
+          "description": "Client display name (used for logging and consent screen)",
+          "type": "string"
+        },
+        "logoUrl": {
+          "description": "URL to client logo (used on consent screen)",
+          "type": "string"
+        },
+        "redirectUris": {
+          "description": "Specifies allowed URIs to return tokens or authorization codes to",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "allowedScopes": {
+          "description": "Specifies the API scopes that the client is allowed to request. If empty, the client can't access any scope",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "description": "Gets or sets the custom properties for the client.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "canReadPersonallyIdentifiableInformation": {
+          "description": "Specifies whether the client can read retrieve personally identifiable information (PII). If not set - PII will be returned",
+          "type": "boolean"
+        },
+        "personallyIdentifiableInformationMode": {
+          "description": "Specifies whether personally identifiable information (PII) are retrieved. If not set, PII are retrieved.",
+          "enum": [
+            "Retrieve",
+            "OmitLinked",
+            "OmitAll"
+          ],
+          "type": "string"
+        }
+      },
+      "example": "{\n  \"clientCode\": \"MYCLIENTCODE\",\n  \"clientName\": \"Connect client name\",\n  \"logoUrl\": \"https://store.apaleo.com/wp-content/uploads/sites/4/2018/03/apaMatic-4-768x766.png\",\n  \"redirectUris\": [\n    \"https://<clientURL>/apaleo-callback/\"\n  ],\n  \"allowedScopes\": [\n    \"availability.read\",\n    \"reservations.read\"\n  ],\n  \"properties\": {\n    \"hubspot\": \"https://app.hubspot.com/contacts/<contractNumber>/company/<companyId>\"\n  },\n  \"canReadPersonallyIdentifiableInformation\": true,\n  \"personallyIdentifiableInformationMode\": \"OmitAll\"\n}"
+    },
+    "CreateCredentialsClientModel": {
+      "required": [
+        "allowedScopes",
+        "clientCode",
+        "clientName"
+      ],
+      "type": "object",
+      "properties": {
+        "clientCode": {
+          "description": "The ClientCode is used to internally generate a unique Id for the client.",
+          "type": "string"
+        },
+        "clientName": {
+          "description": "Client display name (used for logging and consent screen)",
+          "type": "string"
+        },
+        "allowedScopes": {
+          "description": "Specifies the API scopes that the client is allowed to request. If empty, the client can't access any scope",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "description": "Gets or sets the custom properties for the client.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "canReadPersonallyIdentifiableInformation": {
+          "description": "Specifies whether the client can read retrieve personally identifiable information (PII). If not set - PII will be returned",
+          "type": "boolean"
+        },
+        "personallyIdentifiableInformationMode": {
+          "description": "Specifies whether personally identifiable information (PII) are retrieved. If not set, PII are retrieved.",
+          "enum": [
+            "Retrieve",
+            "OmitLinked",
+            "OmitAll"
+          ],
+          "type": "string"
+        }
+      },
+      "example": "{\n  \"clientCode\": \"MYCLIENTCODE\",\n  \"clientName\": \"Client name\",\n  \"allowedScopes\": [\n    \"reservations.read\",\n    \"properties.read\"\n  ],\n  \"properties\": {\n    \"hubspot\": \"https://app.hubspot.com/contacts/<contractNumber>/company/<integrationCompanyId>\",\n    \"customer\": \"https://app.hubspot.com/contacts/<contractNumber>/company/<customerCompanyId>\"\n  },\n  \"canReadPersonallyIdentifiableInformation\": true,\n  \"personallyIdentifiableInformationMode\": \"OmitAll\"\n}"
+    },
+    "CreatedClientSecretModel": {
+      "required": [
+        "id",
+        "secret"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "secret": {
+          "type": "string"
+        }
+      },
+      "example": "{\n  \"id\": \"654QR7\",\n  \"description\": \"Test client secret\",\n  \"secret\": \"yL3eMJyx7MysSwpK17BxORWV0FriQp\"\n}"
+    },
+    "CreateInvitationModel": {
+      "required": [
+        "email"
+      ],
+      "type": "object",
+      "properties": {
+        "email": {
+          "format": "email",
+          "description": "Email address, used as the login",
+          "type": "string"
+        },
+        "properties": {
+          "description": "Properties that user has access to. If the user is invited as account admin, this will be ignored.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "isAccountAdmin": {
+          "description": "If set to {true}, user has full access to all properties. Defaults to false.",
+          "type": "boolean"
+        },
+        "roles": {
+          "description": "Roles that user has access to. If the user is invited as account admin, this will be ignored.",
+          "type": "array",
+          "items": {
+            "enum": [
+              "AccountAdmin",
+              "PropertyAdmin",
+              "Accountant",
+              "RevenueManager",
+              "ReservationManager",
+              "FrontDesk",
+              "FrontDeskSenior",
+              "Housekeeping"
+            ],
+            "type": "string"
+          }
+        },
+        "role": {
+          "description": "The role to be assigned to the user. If you specfiy this and 'Roles', the combination of both will be used.\r\nIf the user is invited as account admin, this will be ignored.",
+          "enum": [
+            "AccountAdmin",
+            "PropertyAdmin",
+            "FinanceManager",
+            "RevenueManager",
+            "ReservationOffice",
+            "FrontOffice",
+            "Housekeeping"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    "CredentialsClientModel": {
+      "required": [
+        "clientId",
+        "clientName",
+        "personallyIdentifiableInformationMode"
+      ],
+      "type": "object",
+      "properties": {
+        "clientId": {
+          "description": "Unique ID of the client",
+          "type": "string"
+        },
+        "clientName": {
+          "description": "Client display name (used for logging and consent screen)",
+          "type": "string"
+        },
+        "allowedScopes": {
+          "description": "Specifies the API scopes that the client is allowed to request. If empty, the client can't access any scope",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "properties": {
+          "description": "Gets or sets the custom properties for the client.",
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "created": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "canReadPersonallyIdentifiableInformation": {
+          "description": "Specifies whether the client can read retrieve personally identifiable information (PII)",
+          "type": "boolean"
+        },
+        "personallyIdentifiableInformationMode": {
+          "description": "Specifies whether personally identifiable information (PII) are retrieved. If not set, PII are retrieved.",
+          "enum": [
+            "Retrieve",
+            "OmitLinked",
+            "OmitAll"
+          ],
+          "type": "string"
+        }
+      },
+      "example": "{\n  \"clientId\": \"client-id\",\n  \"clientName\": \"Client name\",\n  \"allowedScopes\": [\n    \"properties.read\",\n    \"unitgroups.read\"\n  ],\n  \"properties\": {\n    \"hubspot\": \"https://app.hubspot.com/contacts/<contractNumber>/company/<integrationCompanyId>\",\n    \"customer\": \"https://app.hubspot.com/contacts/<contractNumber>/company/<customerCompanyId>\"\n  },\n  \"created\": \"2020-01-23T00:00:00Z\",\n  \"createdBy\": \"apaleo Support\",\n  \"canReadPersonallyIdentifiableInformation\": false,\n  \"personallyIdentifiableInformationMode\": \"Retrieve\"\n}"
+    },
+    "DeprecatedScopeItemModel": {
+      "type": "object",
+      "properties": {
+        "deprecatedScope": {
+          "description": "Name of the scope that has been deprecated.",
+          "type": "string"
+        },
+        "replacedByScopes": {
+          "description": "List of scopes that have replaced the scope.\r\nIf the ReplacedByScopes list is not provided or is empty, then it means that the scope has been entirely removed and not replaced.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "InvitationListModel": {
+      "required": [
+        "invitations"
+      ],
+      "type": "object",
+      "properties": {
+        "invitations": {
+          "description": "All invitations to the current account",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InvitationModel"
+          }
+        }
+      }
+    },
+    "InvitationModel": {
+      "required": [
+        "created",
+        "email",
+        "invitedBy",
+        "isAccountAdmin"
+      ],
+      "type": "object",
+      "properties": {
+        "email": {
+          "description": "Email address, used as the login",
+          "type": "string"
+        },
+        "properties": {
+          "description": "Properties that user has access to",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "isAccountAdmin": {
+          "description": "If set to {true}, user has full access to all properties.",
+          "type": "boolean"
+        },
+        "role": {
+          "description": "Role this user is invited to. If more than one, returns the first.",
+          "enum": [
+            "AccountAdmin",
+            "PropertyAdmin",
+            "FinanceManager",
+            "RevenueManager",
+            "ReservationOffice",
+            "FrontOffice",
+            "Housekeeping"
+          ],
+          "type": "string"
+        },
+        "roles": {
+          "description": "Roles that user has access to",
+          "type": "array",
+          "items": {
+            "enum": [
+              "AccountAdmin",
+              "PropertyAdmin",
+              "Accountant",
+              "RevenueManager",
+              "ReservationManager",
+              "FrontDesk",
+              "FrontDeskSenior",
+              "Housekeeping"
+            ],
+            "type": "string"
+          }
+        },
+        "invitedBy": {
+          "description": "Email of the user making the invitation",
+          "type": "string"
+        },
+        "created": {
+          "format": "date-time",
+          "description": "Date the invitation was made",
+          "type": "string"
+        }
+      }
+    },
+    "InvitedUserToAccountResponseModel": {
+      "required": [
+        "email"
+      ],
+      "type": "object",
+      "properties": {
+        "email": {
+          "description": "Email of invited user",
+          "type": "string"
+        }
+      }
+    },
+    "MessageItemCollection": {
+      "type": "object",
+      "properties": {
+        "messages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "readOnly": true
+        }
+      }
+    },
+    "Operation": {
+      "type": "object",
+      "properties": {
+        "op": {
+          "type": "string"
+        },
+        "value": {
+          "type": "object"
+        },
+        "path": {
+          "type": "string"
+        }
+      }
+    },
+    "PropertyRolesItemModel": {
+      "required": [
+        "id",
+        "roles"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "roles": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "AccountAdmin",
+              "PropertyAdmin",
+              "Accountant",
+              "RevenueManager",
+              "ReservationManager",
+              "FrontDesk",
+              "FrontDeskSenior",
+              "Housekeeping"
+            ],
+            "type": "string"
+          }
+        }
+      }
+    },
+    "RoleListModel": {
+      "required": [
+        "roles"
+      ],
+      "type": "object",
+      "properties": {
+        "roles": {
+          "description": "A list of all existing roles",
+          "type": "array",
+          "items": {
+            "enum": [
+              "AccountAdmin",
+              "PropertyAdmin",
+              "Accountant",
+              "RevenueManager",
+              "ReservationManager",
+              "FrontDesk",
+              "FrontDeskSenior",
+              "Housekeeping"
+            ],
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ScopeModel": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Name of the scope. This is the value a client will use to request the scope.",
+          "type": "string"
+        },
+        "displayName": {
+          "description": "Display name. This value will be used e.g. on the consent screen.",
+          "type": "string"
+        }
+      }
+    },
+    "UserItemModel": {
+      "required": [
+        "email",
+        "enabled",
+        "firstName",
+        "isAccountAdmin",
+        "lastName",
+        "subjectId"
+      ],
+      "type": "object",
+      "properties": {
+        "subjectId": {
+          "format": "uuid",
+          "description": "Unique user identifier.",
+          "type": "string"
+        },
+        "firstName": {
+          "description": "First name",
+          "type": "string"
+        },
+        "lastName": {
+          "description": "Last name",
+          "type": "string"
+        },
+        "email": {
+          "description": "Email address, used as the login",
+          "type": "string"
+        },
+        "properties": {
+          "description": "Properties that user has access to",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PropertyRolesItemModel"
+          }
+        },
+        "enabled": {
+          "description": "If set to {false}, the user is disabled for this account and cannot log in",
+          "type": "boolean"
+        },
+        "isAccountAdmin": {
+          "description": "If set to {true}, user has full access to all properties.",
+          "type": "boolean"
+        }
+      }
+    },
+    "UserModel": {
+      "required": [
+        "email",
+        "firstName",
+        "isAccountAdmin",
+        "lastName",
+        "subjectId"
+      ],
+      "type": "object",
+      "properties": {
+        "subjectId": {
+          "format": "uuid",
+          "description": "Unique user identifier.",
+          "type": "string"
+        },
+        "firstName": {
+          "description": "First name",
+          "type": "string"
+        },
+        "lastName": {
+          "description": "Last name",
+          "type": "string"
+        },
+        "email": {
+          "description": "Email address, used as the login",
+          "type": "string"
+        },
+        "enabled": {
+          "description": "If set to {false}, the user is disabled for this account and cannot log in",
+          "type": "boolean"
+        },
+        "isAccountAdmin": {
+          "description": "If set to {true}, user has full access to all properties.",
+          "type": "boolean"
+        },
+        "properties": {
+          "description": "List of properties to which user has access.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "propertyRoles": {
+          "description": "List of properties to which user has access.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PropertyRolesItemModel"
+          }
+        }
+      },
+      "example": "{\n  \"subjectId\": \"50ff45e2-9393-4040-8138-a782ce121c13\",\n  \"firstName\": \"Milosz\",\n  \"lastName\": \"Jones\",\n  \"email\": \"user1@apaleo.com\",\n  \"enabled\": true,\n  \"isAccountAdmin\": false,\n  \"properties\": [\n    \"MUC\"\n  ],\n  \"propertyRoles\": [\n    {\n      \"id\": \"MUC\",\n      \"roles\": [\n        \"FrontDesk\",\n        \"Accountant\"\n      ]\n    }\n  ]\n}"
+    },
+    "UsersListModel": {
+      "required": [
+        "users"
+      ],
+      "type": "object",
+      "properties": {
+        "users": {
+          "description": "A collection of users that have access to the current account",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserItemModel"
+          }
+        }
+      },
+      "example": "{\n  \"users\": [\n    {\n      \"subjectId\": \"3cdb2db2-3be9-48c7-8422-0265f4a1b9d2\",\n      \"firstName\": \"Riaz\",\n      \"lastName\": \"Sparks\",\n      \"email\": \"user1@apaleo.com\",\n      \"properties\": [],\n      \"enabled\": true,\n      \"isAccountAdmin\": true\n    },\n    {\n      \"subjectId\": \"98e3788d-3060-4f95-beb1-ec0cd27006d1\",\n      \"firstName\": \"Milosz\",\n      \"lastName\": \"Jones\",\n      \"email\": \"user1@apaleo.com\",\n      \"properties\": [\n        {\n          \"id\": \"MUC\",\n          \"roles\": [\n            \"FrontDesk\",\n            \"Accountant\"\n          ]\n        }\n      ],\n      \"enabled\": true,\n      \"isAccountAdmin\": false\n    }\n  ]\n}"
+    },
+    "CreatePropertyConfigurationModel": {
+        "required": [
+          "countryCode"
+        ],
+        "type": "object",
+        "properties": {
+          "countryCode": {
+            "type": "string"
+          }
+        },
+        "example": "{\n  \"countryCode\": \"DE\"\n}"
+      },
+      "LineItemModel": {
+        "required": [
+          "amount",
+          "id",
+          "isPosted",
+          "lineItemCreatedDate",
+          "name",
+          "quantity",
+          "serviceDate",
+          "vatInfo"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "lineItemCreatedDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "amount": {
+            "$ref": "#/definitions/MonetaryValueModel"
+          },
+          "serviceDate": {
+            "type": "string"
+          },
+          "isPosted": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string"
+          },
+          "quantity": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "vatInfo": {
+            "$ref": "#/definitions/VatInfoModel"
+          }
+        }
+      },
+      "LineItemPaymentModel": {
+        "required": [
+          "amount",
+          "lineItemId",
+          "paymentId"
+        ],
+        "type": "object",
+        "properties": {
+          "lineItemId": {
+            "type": "string"
+          },
+          "paymentId": {
+            "type": "string"
+          },
+          "amount": {
+            "format": "double",
+            "type": "number"
+          }
+        }
+      },
+      "MonetaryValueModel": {
+        "required": [
+          "amount",
+          "currency"
+        ],
+        "type": "object",
+        "properties": {
+          "currency": {
+            "type": "string"
+          },
+          "amount": {
+            "format": "double",
+            "type": "number"
+          }
+        }
+      },
+      "PaymentModel": {
+        "required": [
+          "amount",
+          "fiscalizationStatus",
+          "id",
+          "method",
+          "originatingClientId",
+          "paymentDate",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "paymentDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "amount": {
+            "$ref": "#/definitions/MonetaryValueModel"
+          },
+          "method": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "originatingClientId": {
+            "type": "string"
+          },
+          "fiscalizationStatus": {
+            "enum": [
+              "Unknown",
+              "Invalid",
+              "NotRequired",
+              "Required"
+            ],
+            "type": "string",
+            "x-ms-enum": {
+              "name": "FiscalizationStatus",
+              "modelAsString": false
+            }
+          },
+          "paymentParts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/LineItemPaymentModel"
+            }
+          }
+        }
+      },
+      "PropertyConfigurationListModel": {
+        "required": [
+          "configurations"
+        ],
+        "type": "object",
+        "properties": {
+          "configurations": {
+            "description": "List of property configurations",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/PropertyConfigurationModel"
+            }
+          }
+        },
+        "example": "{\n  \"configurations\": [\n    {\n      \"created\": \"0001-01-01T00:00:00Z\",\n      \"propertyId\": \"BER\",\n      \"taxId\": \"135689\",\n      \"countryCode\": \"DE\",\n      \"excludedClientIds\": [\n        \"EXCLUDED\",\n        \"CLIENTID\"\n      ]\n    },\n    {\n      \"created\": \"0001-01-01T00:00:00Z\",\n      \"propertyId\": \"MUC\",\n      \"taxId\": \"024680\",\n      \"countryCode\": \"DE\",\n      \"excludedClientIds\": [\n        \"EXCLUDED\",\n        \"CLIENTID\"\n      ]\n    }\n  ]\n}"
+      },
+      "PropertyConfigurationModel": {
+        "required": [
+          "countryCode",
+          "created",
+          "propertyId",
+          "taxId",
+          "timezone"
+        ],
+        "type": "object",
+        "properties": {
+          "created": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "propertyId": {
+            "type": "string"
+          },
+          "taxId": {
+            "type": "string"
+          },
+          "countryCode": {
+            "type": "string"
+          },
+          "timezone": {
+            "type": "string"
+          },
+          "excludedClientIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "example": "{\n  \"created\": \"2020-05-05T01:01:00Z\",\n  \"propertyId\": \"BER\",\n  \"taxId\": \"157891\",\n  \"countryCode\": \"DE\",\n  \"timezone\": \"Eupore/Berlin\",\n  \"excludedClientIds\": [\n    \"EXCLUDED\",\n    \"CLIENTID\"\n  ]\n}"
+      },
+      "ReceiptLineItemModel": {
+        "required": [
+          "id",
+          "name",
+          "paidAmount",
+          "quantity",
+          "totalAmount"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "The id of the charge",
+            "type": "string"
+          },
+          "paidAmount": {
+            "$ref": "#/definitions/MonetaryValueModel"
+          },
+          "totalAmount": {
+            "$ref": "#/definitions/MonetaryValueModel"
+          },
+          "name": {
+            "description": "The name of the charge",
+            "type": "string"
+          },
+          "quantity": {
+            "format": "int32",
+            "description": "The quantity of the charge",
+            "type": "integer"
+          },
+          "taxes": {
+            "description": "Tax details breakdown for this charge",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/TaxAmountModel"
+            }
+          }
+        }
+      },
+      "ReceiptModel": {
+        "required": [
+          "id",
+          "lineItems",
+          "payments",
+          "receiptTime",
+          "status",
+          "total",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "The id of the receipt",
+            "type": "string"
+          },
+          "number": {
+            "description": "The number of the receipt, assigned by an external service",
+            "type": "string"
+          },
+          "type": {
+            "description": "Receipt type: Initial, Cancellation, Correction",
+            "enum": [
+              "Initial",
+              "Cancellation",
+              "Correction"
+            ],
+            "type": "string",
+            "x-ms-enum": {
+              "name": "ReceiptType",
+              "modelAsString": false
+            }
+          },
+          "status": {
+            "description": "Current receipt status",
+            "enum": [
+              "Pending",
+              "Signed",
+              "SigningFailed",
+              "Rendered",
+              "RenderingFailed"
+            ],
+            "type": "string",
+            "x-ms-enum": {
+              "name": "ReceiptStatus",
+              "modelAsString": false
+            }
+          },
+          "receiptTime": {
+            "format": "date-time",
+            "description": "Date and time of the receipt",
+            "type": "string"
+          },
+          "payments": {
+            "description": "The list of payments for this receipt",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/ReceiptPaymentModel"
+            }
+          },
+          "lineItems": {
+            "description": "The list of line items for this receipt",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/ReceiptLineItemModel"
+            }
+          },
+          "total": {
+            "$ref": "#/definitions/MonetaryValueModel"
+          },
+          "previousReceipt": {
+            "$ref": "#/definitions/RelatedReceiptModel"
+          },
+          "metadata": {
+            "description": "Optional metadata, containing country-specific metadata for the receipt",
+            "type": "string"
+          }
+        },
+        "example": "{\n  \"id\": \"FDASFASFS-1\",\n  \"number\": \"1001\",\n  \"type\": \"Initial\",\n  \"status\": \"Pending\",\n  \"receiptTime\": \"2020-05-20T00:00:00Z\",\n  \"payments\": [\n    {\n      \"id\": \"ASFASFAS\",\n      \"amount\": {\n        \"currency\": \"EUR\",\n        \"amount\": 50.45\n      },\n      \"name\": \"PaymentOne\"\n    }\n  ],\n  \"lineItems\": [\n    {\n      \"id\": \"ASFSAFSAF\",\n      \"paidAmount\": {\n        \"currency\": \"EUR\",\n        \"amount\": 100.0\n      },\n      \"totalAmount\": {\n        \"currency\": \"EUR\",\n        \"amount\": 100.0\n      },\n      \"name\": \"Bike rental\",\n      \"quantity\": 1,\n      \"taxes\": [\n        {\n          \"type\": \"Normal\",\n          \"percent\": 7.0,\n          \"amount\": 12.0\n        }\n      ]\n    }\n  ],\n  \"total\": {\n    \"currency\": \"EUR\",\n    \"amount\": 100.0\n  },\n  \"previousReceipt\": {\n    \"id\": \"FDASFASFS-0\",\n    \"number\": \"1000\"\n  }\n}"
+      },
+      "ReceiptPaymentModel": {
+        "required": [
+          "amount",
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "The id of the payment",
+            "type": "string"
+          },
+          "amount": {
+            "$ref": "#/definitions/MonetaryValueModel"
+          },
+          "name": {
+            "description": "The name of the payment",
+            "type": "string"
+          }
+        }
+      },
+      "RelatedReceiptModel": {
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "The id of the receipt",
+            "type": "string"
+          },
+          "number": {
+            "description": "The number of the receipt, assigned by an external service",
+            "type": "string"
+          }
+        }
+      },
+      "SlimReceiptListModel": {
+        "required": [
+          "count"
+        ],
+        "type": "object",
+        "properties": {
+          "receipts": {
+            "description": "The list of receipts",
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/SlimReceiptModel"
+            }
+          },
+          "count": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "example": "{\n  \"receipts\": [\n    {\n      \"id\": \"FDASFASFS-1\",\n      \"number\": \"1001\",\n      \"type\": \"Initial\",\n      \"status\": \"Pending\",\n      \"receiptTime\": \"2020-05-20T00:00:00Z\",\n      \"paymentIds\": [\n        \"SAFSAFSD\"\n      ],\n      \"total\": {\n        \"currency\": \"EUR\",\n        \"amount\": 100.0\n      }\n    }\n  ],\n  \"count\": 0\n}"
+      },
+      "SlimReceiptModel": {
+        "required": [
+          "id",
+          "paymentIds",
+          "receiptTime",
+          "status",
+          "total",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "The id of the receipt",
+            "type": "string"
+          },
+          "number": {
+            "description": "The number of the receipt, assigned by an external service",
+            "type": "string"
+          },
+          "type": {
+            "description": "Receipt type: Initial, Cancellation, Correction",
+            "enum": [
+              "Initial",
+              "Cancellation",
+              "Correction"
+            ],
+            "type": "string",
+            "x-ms-enum": {
+              "name": "ReceiptType",
+              "modelAsString": false
+            }
+          },
+          "status": {
+            "description": "Current receipt status",
+            "enum": [
+              "Pending",
+              "Signed",
+              "SigningFailed",
+              "Rendered",
+              "RenderingFailed"
+            ],
+            "type": "string",
+            "x-ms-enum": {
+              "name": "ReceiptStatus",
+              "modelAsString": false
+            }
+          },
+          "receiptTime": {
+            "format": "date-time",
+            "description": "Date and time of the receipt",
+            "type": "string"
+          },
+          "paymentIds": {
+            "description": "The list of payment ids included in the receipt",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "total": {
+            "$ref": "#/definitions/MonetaryValueModel"
+          }
+        }
+      },
+      "SnapshotListItemModel": {
+        "required": [
+          "folioEvent",
+          "folioId",
+          "folioUpdatedDate",
+          "id",
+          "propertyId",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "folioId": {
+            "type": "string"
+          },
+          "propertyId": {
+            "type": "string"
+          },
+          "folioUpdatedDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "Unknown",
+              "Invalid",
+              "NotRequired",
+              "Required"
+            ],
+            "type": "string",
+            "x-ms-enum": {
+              "name": "FiscalizationStatus",
+              "modelAsString": false
+            }
+          },
+          "folioEvent": {
+            "type": "string"
+          }
+        }
+      },
+      "SnapshotListModel": {
+        "required": [
+          "count"
+        ],
+        "type": "object",
+        "properties": {
+          "snapshots": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/SnapshotListItemModel"
+            }
+          },
+          "count": {
+            "format": "int64",
+            "type": "integer"
+          }
+        },
+        "example": "{\n  \"snapshots\": [\n    {\n      \"id\": \"IDDQD-1-1-1\",\n      \"folioId\": \"IDDQD-1-1\",\n      \"propertyId\": \"MUC\",\n      \"folioUpdatedDate\": \"2020-05-05T01:01:00Z\",\n      \"status\": \"Required\",\n      \"folioEvent\": \"closed\"\n    }\n  ],\n  \"count\": 1\n}"
+      },
+      "SnapshotModel": {
+        "required": [
+          "folioId",
+          "folioUpdatedDate",
+          "id",
+          "propertyId",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "folioId": {
+            "type": "string"
+          },
+          "propertyId": {
+            "type": "string"
+          },
+          "folioUpdatedDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "Unknown",
+              "Invalid",
+              "NotRequired",
+              "Required"
+            ],
+            "type": "string",
+            "x-ms-enum": {
+              "name": "FiscalizationStatus",
+              "modelAsString": false
+            }
+          },
+          "lineItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/LineItemModel"
+            }
+          },
+          "payments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/PaymentModel"
+            }
+          },
+          "folioEvent": {
+            "type": "string"
+          }
+        },
+        "example": "{\n  \"id\": \"IDDQD-1-1-1\",\n  \"folioId\": \"IDDQD-1-1\",\n  \"propertyId\": \"MUC\",\n  \"folioUpdatedDate\": \"2020-05-05T01:01:00Z\",\n  \"status\": \"Required\",\n  \"lineItems\": [\n    {\n      \"id\": \"IDDQD-1-1-D-1\",\n      \"lineItemCreatedDate\": \"2020-05-05T01:01:00Z\",\n      \"amount\": {\n        \"currency\": \"EUR\",\n        \"amount\": 100.0\n      },\n      \"serviceDate\": \"2020-05-05\",\n      \"isPosted\": true,\n      \"name\": \"Double room\",\n      \"quantity\": 1,\n      \"vatInfo\": {\n        \"type\": \"Normal\",\n        \"percent\": 20.0\n      }\n    }\n  ],\n  \"payments\": [\n    {\n      \"id\": \"IDKFA\",\n      \"paymentDate\": \"2020-05-05T01:01:00Z\",\n      \"amount\": {\n        \"currency\": \"EUR\",\n        \"amount\": 100.0\n      },\n      \"method\": \"Visa\",\n      \"fiscalizationStatus\": \"NotRequired\",\n      \"paymentParts\": [\n        {\n          \"lineItemId\": \"IDDQD-1-1-D-1\",\n          \"paymentId\": \"IDKFA\",\n          \"amount\": 100.0\n        }\n      ]\n    }\n  ],\n  \"folioEvent\": \"closed\"\n}"
+      },
+      "TaxAmountModel": {
+        "required": [
+          "amount",
+          "percent",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "description": "The VAT type",
+            "enum": [
+              "Null",
+              "VeryReduced",
+              "Reduced",
+              "Normal",
+              "Without",
+              "Special",
+              "ReducedCovid19",
+              "NormalCovid19"
+            ],
+            "type": "string",
+            "x-ms-enum": {
+              "name": "VatType",
+              "modelAsString": false
+            }
+          },
+          "percent": {
+            "format": "double",
+            "description": "The currently valid percent to calculate the VAT",
+            "type": "number"
+          },
+          "amount": {
+            "format": "double",
+            "description": "The tax amount",
+            "type": "number"
+          }
+        }
+      },
+      "VatInfoModel": {
+        "required": [
+          "percent",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "enum": [
+              "Null",
+              "VeryReduced",
+              "Reduced",
+              "Normal",
+              "Without",
+              "Special",
+              "ReducedCovid19",
+              "NormalCovid19"
+            ],
+            "type": "string",
+            "x-ms-enum": {
+              "name": "VatType",
+              "modelAsString": false
+            }
+          },
+          "percent": {
+            "format": "double",
+            "type": "number"
+          }
+        }
+      }
+  },
+  "securityDefinitions": {
+    "oauth2": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "https://identity.apaleo.com/connect/authorize",
+      "scopes": {
+        "identity:account-users.manage": "Manage account users",
+        "identity:clients.manage": "Manage clients",
+        "fiscalization:admin": "Full access to Fiscalization configuration"
+      }
+    }
+  }
+}
