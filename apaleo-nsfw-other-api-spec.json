@@ -4,6 +4,7 @@
     "title": "apaleo API - not safe for work",
     "version": "v0-nsfw"
   },
+  "host": "api.apaleo.com",
   "paths": {
     "/api/v0-nsfw/configuration/api-resources": {
       "get": {
